@@ -1,0 +1,33 @@
+[0.393s] Invoking command in '/home/jcb/robocol/motion_control_ros2/src/motion_pkg': PYTHONPATH=/home/jcb/robocol/motion_control_ros2/build/motion_pkg/prefix_override:/home/jcb/robocol/motion_control_ros2/install/motion_pkg/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/motion_pkg build --build-base /home/jcb/robocol/motion_control_ros2/build/motion_pkg/build install --record /home/jcb/robocol/motion_control_ros2/build/motion_pkg/install.log --single-version-externally-managed
+[0.553s] running egg_info
+[0.554s] creating ../../build/motion_pkg/motion_pkg.egg-info
+[0.554s] writing ../../build/motion_pkg/motion_pkg.egg-info/PKG-INFO
+[0.554s] writing dependency_links to ../../build/motion_pkg/motion_pkg.egg-info/dependency_links.txt
+[0.554s] writing entry points to ../../build/motion_pkg/motion_pkg.egg-info/entry_points.txt
+[0.554s] writing requirements to ../../build/motion_pkg/motion_pkg.egg-info/requires.txt
+[0.554s] writing top-level names to ../../build/motion_pkg/motion_pkg.egg-info/top_level.txt
+[0.554s] writing manifest file '../../build/motion_pkg/motion_pkg.egg-info/SOURCES.txt'
+[0.556s] reading manifest file '../../build/motion_pkg/motion_pkg.egg-info/SOURCES.txt'
+[0.556s] writing manifest file '../../build/motion_pkg/motion_pkg.egg-info/SOURCES.txt'
+[0.556s] running build
+[0.557s] running build_py
+[0.557s] creating /home/jcb/robocol/motion_control_ros2/build/motion_pkg/build
+[0.557s] creating /home/jcb/robocol/motion_control_ros2/build/motion_pkg/build/lib
+[0.557s] creating /home/jcb/robocol/motion_control_ros2/build/motion_pkg/build/lib/motion_pkg
+[0.557s] copying motion_pkg/__init__.py -> /home/jcb/robocol/motion_control_ros2/build/motion_pkg/build/lib/motion_pkg
+[0.557s] running install
+[0.557s] running install_lib
+[0.557s] creating /home/jcb/robocol/motion_control_ros2/install/motion_pkg/lib/python3.10/site-packages/motion_pkg
+[0.557s] copying /home/jcb/robocol/motion_control_ros2/build/motion_pkg/build/lib/motion_pkg/__init__.py -> /home/jcb/robocol/motion_control_ros2/install/motion_pkg/lib/python3.10/site-packages/motion_pkg
+[0.558s] byte-compiling /home/jcb/robocol/motion_control_ros2/install/motion_pkg/lib/python3.10/site-packages/motion_pkg/__init__.py to __init__.cpython-310.pyc
+[0.558s] running install_data
+[0.558s] creating /home/jcb/robocol/motion_control_ros2/install/motion_pkg/share/ament_index
+[0.558s] creating /home/jcb/robocol/motion_control_ros2/install/motion_pkg/share/ament_index/resource_index
+[0.558s] creating /home/jcb/robocol/motion_control_ros2/install/motion_pkg/share/ament_index/resource_index/packages
+[0.558s] copying resource/motion_pkg -> /home/jcb/robocol/motion_control_ros2/install/motion_pkg/share/ament_index/resource_index/packages
+[0.558s] copying package.xml -> /home/jcb/robocol/motion_control_ros2/install/motion_pkg/share/motion_pkg
+[0.558s] running install_egg_info
+[0.559s] Copying ../../build/motion_pkg/motion_pkg.egg-info to /home/jcb/robocol/motion_control_ros2/install/motion_pkg/lib/python3.10/site-packages/motion_pkg-0.0.0-py3.10.egg-info
+[0.560s] running install_scripts
+[0.573s] writing list of installed files to '/home/jcb/robocol/motion_control_ros2/build/motion_pkg/install.log'
+[0.591s] Invoked command in '/home/jcb/robocol/motion_control_ros2/src/motion_pkg' returned '0': PYTHONPATH=/home/jcb/robocol/motion_control_ros2/build/motion_pkg/prefix_override:/home/jcb/robocol/motion_control_ros2/install/motion_pkg/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/motion_pkg build --build-base /home/jcb/robocol/motion_control_ros2/build/motion_pkg/build install --record /home/jcb/robocol/motion_control_ros2/build/motion_pkg/install.log --single-version-externally-managed
