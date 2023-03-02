@@ -43,7 +43,6 @@ class Joystick_Publisher(Node):
         print('Joystick calibrado')
         msg = Float32MultiArray()
         self.timer = self.create_timer(timer_period, lambda : self.timer_callback(msg=msg, joystick_ref=joystick_ref))
-        #puede que haya un error aqui pq no se si se puede pasar un parametro a la funcion timer_callback
     
     def timer_callback(self, msg, joystick_ref):
 
@@ -124,5 +123,5 @@ def main():
     joystick_publisher.destroy_node()
     rclpy.shutdown()
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
