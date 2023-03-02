@@ -20,6 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'joystick_publisher = motion_pkg.joystick_publisher:main',
         ],
     },
 )
