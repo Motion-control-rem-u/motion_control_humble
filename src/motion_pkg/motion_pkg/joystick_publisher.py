@@ -2,11 +2,18 @@ import math
 import rclpy
 from rclpy.node import Node
 
-from std_msgs.msg import String, Float32MultiArray
+#TODO: Usamos float32 multi array pero siempre se mandan enteros jaja
+from std_msgs.msg import Float32MultiArray
 
 import pygame
 
-class Joystick_Publisher(Node):
+class JoystickPublisher(Node):
+    '''
+    PERMITE USAR EL JOYSTICK Y PUBLICA LOS PWM AL ARDUINO.
+    Corre en el PC
+    Funciona con control_rem.py y serial_writer.py
+    ROBOCOL - 2023-1
+    '''
     # Referenc de eventos generados de eje Movido:
     _axis_moved = False
     # Maximas rpm de las llantas
