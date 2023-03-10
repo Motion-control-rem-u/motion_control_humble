@@ -9,6 +9,7 @@ setup.py
 ../../build/motion_pkg/motion_pkg.egg-info/top_level.txt
 ../../build/motion_pkg/motion_pkg.egg-info/zip-safe
 motion_pkg/__init__.py
+motion_pkg/joystick_publisher.py
 resource/motion_pkg
 test/test_copyright.py
 test/test_flake8.py
