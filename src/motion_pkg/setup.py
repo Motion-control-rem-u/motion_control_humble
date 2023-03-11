@@ -21,6 +21,7 @@ setup(
     entry_points={
         'console_scripts': [
             'joystick_publisher = motion_pkg.joystick_publisher:main',
+            'serial_writer = motion_pkg.serial_writer:main',
         ],
     },
 )

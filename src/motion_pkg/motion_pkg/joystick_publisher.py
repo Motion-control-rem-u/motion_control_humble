@@ -1,4 +1,5 @@
 import math
+import sys
 import rclpy
 from rclpy.node import Node
 
@@ -26,7 +27,7 @@ class JoystickPublisher(Node):
 
     def __init__(self):
         super().__init__('node_joystick_publisher')
-        self.publisher_ = self.create_publisher(Float32MultiArray, 'joystick', 10)
+        self.publisher_ = self.create_publisher(Float32MultiArray, 'motion/pwm_data', 10)
         timer_period = 0.01  # seconds
 
         pygame.init()
@@ -36,6 +37,7 @@ class JoystickPublisher(Node):
         print('Esperando joystick...')
         # Se crea la referencia al joystick
         joystick_ref = pygame.joystick.Joystick(0)
+            
         # Se inicializa el joystick de esa referencia
         joystick_ref.init()
         # Referencia de la palanca estado actual
@@ -124,11 +126,14 @@ class JoystickPublisher(Node):
 
 def main():
     rclpy.init()
-    joystick_publisher = Joystick_Publisher()
-    rclpy.spin(joystick_publisher)
-
-    joystick_publisher.destroy_node()
-    rclpy.shutdown()
-
-# if __name__ == '__main__':
-#     main()
+    try:
+        joystick_publisher = JoystickPublisher()
+        try:
+            rclpy.spin(joystick_publisher)
+        except KeyboardInterrupt:
+            sys.stdout.write("\033[F")
+            print('Ctrl-c detectado. Chao.')
+        finally:
+            joystick_publisher.destroy_node()
+    except pygame.error:
+        print('Error pygame. Esta conectado el joystick? Intenta de nuevo.')
