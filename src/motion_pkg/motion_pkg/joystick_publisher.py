@@ -18,7 +18,7 @@ class Joystick_Publisher(Node):
 
 
     def __init__(self):
-        super().__init__('node_joystick_publisher')
+        super().__init__('joystick_publisher')
         self.publisher_ = self.create_publisher(Float32MultiArray, 'joystick', 10)
         timer_period = 0.01  # seconds
 
