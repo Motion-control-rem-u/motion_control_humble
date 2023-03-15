@@ -25,6 +25,6 @@ Para armar el workspace (toca hacerlo despues de cada cambio):
 
 Despues, en otro terminal:
 
-`. install/setup.bash`
+`. install/local_setup.bash`
 
 `ros2 run motion_pkg [node name]`
