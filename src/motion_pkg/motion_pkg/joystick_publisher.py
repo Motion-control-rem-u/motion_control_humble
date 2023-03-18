@@ -46,7 +46,7 @@ class Joystick_Publisher(Node):
     
     def timer_callback(self, msg, joystick_ref):
 
-        msg.data = [0.0, 0.0, 0.0, 0.0]
+        msg.data = [0.0, 0.0, 0.0, 0.0,0.0]
 
         self.empty_event_queue()
 
@@ -64,7 +64,7 @@ class Joystick_Publisher(Node):
                 left_d = int((self._max_rpm*(-axis3+1)/2)*axis2)
                 right_d = int(-(self._max_rpm*(-axis3+1)/2)*axis2)
 
-            msg.data[0],msg.data[1],msg.data[2], msg.data[3] = left_u,right_u,left_d,right_d
+            msg.data[0],msg.data[1],msg.data[2], msg.data[3], msg.data[4] = left_u,right_u,left_d,right_d,int(0)
             #encoded = (str(msg)+"\n").encode('utf-8')
             print(msg.data)
             self._axis_moved = False

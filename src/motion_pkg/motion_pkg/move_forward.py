@@ -61,14 +61,14 @@ class serialRaspESP(Node):
             
         while ((time.time() - inicio ) < duracion ) and (msg.data == True) :
             pwms = Float32MultiArray()
-            pwms.data = [0.0, 0.0, 0.0, 0.0]
+            pwms.data = [0.0, 0.0, 0.0, 0.0,1.0]
             #pwms = [(self.left_f), (self.right_f),(self.left_b), (self.right_b)]          
-            pwms.data[0],pwms.data[1],pwms.data[2], pwms.data[3] = self.left_f,self.right_f,self.left_b,self.right_b
+            pwms.data[0],pwms.data[1],pwms.data[2], pwms.data[3] , pwms.data[4] = self.left_f,self.right_f,self.left_b,self.right_b, int(1)
         
             print (pwms.data)
             print ((time.time() - inicio ))
             self.publisher_.publish(pwms)
-        pwms.data = [0.0, 0.0, 0.0, 0.0]
+        pwms.data = [0.0, 0.0, 0.0, 0.0,1.0]
         print (pwms.data)
         self.publisher_.publish(pwms)
 
