@@ -19,12 +19,11 @@ from std_msgs.msg import String, Float32MultiArray
 class serialRaspESP(Node):
 
     def __init__(self):
-        try:
-            self.ser = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
-            self.ser.reset_input_buffer()   
-            print("Conexion Serial exitosa")     
-        except Exception:
-            pass
+        
+        self.ser = serial.Serial('/dev/ttyACM0', 115200, timeout=0, write_timeout=1)
+        self.ser.reset_input_buffer()   
+        print("Conexion Serial exitosa")     
+        
         super().__init__('Serial_writer')
         self.subscription = self.create_subscription(Float32MultiArray, 'joystick', self.listener_callback, 10)
         self.left_f = 0 # Fuerza motor izq frontal
@@ -33,24 +32,24 @@ class serialRaspESP(Node):
         self.right_b = 0 # fuerza motor der back
         
 
-    def agregar_ceros(numero):
-        es_positivo=numero>=0
-        numero_str=str(abs(numero))
-        if es_positivo:
-            numero_str="0"*(4-len(numero_str))+numero_str
-        else:
-            numero_str="-"+"0"*(3-len(numero_str))+numero_str
-        return numero_str
-
     def listener_callback(self, msg):
         self.left_f = int(msg.data[0])
         self.right_f = int (msg.data[1])
         self.left_b = int(msg.data[2])
         self.right_b = int (msg.data[3])
-        pwms = [self.agregar_ceros(self.left_f), self.agregar_ceros(self.right_f),self.agregar_ceros(self.left_b), self.agregar_ceros(self.right_b)]          
+        pwms = [agregar_ceros(self.left_f), agregar_ceros(self.right_f),agregar_ceros(self.left_b), agregar_ceros(self.right_b)]          
         print (pwms)
-        serial.Serial('/dev/ttyACM0', 115200, timeout=1).write((str(pwms) + '\n').encode('utf-8'))
+        self.ser.write((str(pwms) + '\n').encode('utf-8'))
 
+
+def agregar_ceros( numero):
+    es_positivo=numero>=0
+    numero_str=str(abs(numero))
+    if es_positivo:
+        numero_str="0"*(4-len(numero_str))+numero_str
+    else:
+        numero_str="-"+"0"*(3-len(numero_str))+numero_str
+    return numero_str
 
 
 def main(args=None):
