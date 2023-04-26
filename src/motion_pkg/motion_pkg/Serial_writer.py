@@ -42,7 +42,7 @@ class serialRaspESP(Node):
         self.ser.write((str(pwms) + '\n').encode('utf-8'))
 
 
-def agregar_ceros( numero):
+def agregar_ceros( self, numero):
     es_positivo=numero>=0
     numero_str=str(abs(numero))
     if es_positivo:
@@ -53,6 +53,7 @@ def agregar_ceros( numero):
 
 
 def main(args=None):
+    print("prueba 1")
     rclpy.init(args=args)
     SerialRaspESP=serialRaspESP()
     rclpy.spin(SerialRaspESP)
