@@ -42,14 +42,14 @@ class serialRaspESP(Node):
         self.ser.write((str(pwms) + '\n').encode('utf-8'))
 
 
-def agregar_ceros( self, numero):
-    es_positivo=numero>=0
-    numero_str=str(abs(numero))
-    if es_positivo:
-        numero_str="0"*(4-len(numero_str))+numero_str
-    else:
-        numero_str="-"+"0"*(3-len(numero_str))+numero_str
-    return numero_str
+    def agregar_ceros( self, numero):
+        es_positivo=numero>=0
+        numero_str=str(abs(numero))
+        if es_positivo:
+            numero_str="0"*(4-len(numero_str))+numero_str
+        else:
+            numero_str="-"+"0"*(3-len(numero_str))+numero_str
+        return numero_str
 
 
 def main(args=None):
