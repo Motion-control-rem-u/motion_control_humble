@@ -59,12 +59,13 @@ class Joystick_Publisher(Node):
             if abs(round(axis2,1)) <= self._deadzone_rot:
                 left_u,right_u,left_d,right_d = self.stick_steering(axis1, axis0, self._max_rpm*(-axis3+1)/2)
             else:
-                left_u =  int((self._max_rpm*(-axis3+1)/2)*axis2)
-                right_u = int(-(self._max_rpm*(-axis3+1)/2)*axis2)
-                left_d = int((self._max_rpm*(-axis3+1)/2)*axis2)
-                right_d = int(-(self._max_rpm*(-axis3+1)/2)*axis2)
+                left_u =  int(-(self._max_rpm*(-axis3+1)/2)*axis2)
+                right_u = int((self._max_rpm*(-axis3+1)/2)*axis2)
+                left_d = int(-(self._max_rpm*(-axis3+1)/2)*axis2)
+                right_d = int((self._max_rpm*(-axis3+1)/2)*axis2)
 
-            msg.data[0],msg.data[1],msg.data[2], msg.data[3] = left_u,right_u,left_d,right_d
+            #msg.data[0],msg.data[1],msg.data[2], msg.data[3] = left_u,right_u,left_d,right_d
+            msg.data[0],msg.data[1],msg.data[2], msg.data[3] = -left_d,-right_d,0,0
             #encoded = (str(msg)+"\n").encode('utf-8')
             print(msg.data)
             self._axis_moved = False
