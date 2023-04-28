@@ -18,9 +18,9 @@ class Joystick_Publisher(Node):
 
 
     def __init__(self):
-        super().__init__('node_joystick_publisher')
+        super().__init__('joystick_publisher')
         self.publisher_ = self.create_publisher(Float32MultiArray, 'joystick', 10)
-        timer_period = 0.01  # seconds
+        timer_period = 0.1  # seconds
 
         pygame.init()
         
@@ -64,12 +64,13 @@ class Joystick_Publisher(Node):
                 left_d = int((self._max_rpm*(-axis3+1)/2)*axis2)
                 right_d = int(-(self._max_rpm*(-axis3+1)/2)*axis2)
 
-            msg.data[0],msg.data[1],msg.data[2], msg.data[3] = left_u,right_u,left_d,right_d
+            #msg.data[0],msg.data[1],msg.data[2], msg.data[3] = left_u,right_u,left_d,right_d
+            msg.data[0],msg.data[1],msg.data[2], msg.data[3] = left_d,right_d,0,0
             #encoded = (str(msg)+"\n").encode('utf-8')
             print(msg.data)
             self._axis_moved = False
 
-        self.publisher_.publish(msg)
+            self.publisher_.publish(msg)
     
     def stick_steering(self, x, y, sensibilidad_rcv):
         # Convierte a polar
