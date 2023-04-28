@@ -18,14 +18,13 @@ from std_msgs.msg import String, Float32MultiArray
 
 class serialRaspESP(Node):
 
-    def __init__(self):
-        try:
-            self.ser = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
-            self.ser.reset_input_buffer()   
-            print("Conexion Serial exitosa")     
-        except Exception:
-            pass
-        super().__init__('Serial_writer')
+    def _init_(self):
+        
+        self.ser = serial.Serial('/dev/ttyACM0', 115200, timeout=0, write_timeout=1)
+        self.ser.reset_input_buffer()   
+        print("Conexion Serial exitosa")     
+        
+        super()._init_('Serial_writer')
         self.subscription = self.create_subscription(Float32MultiArray, 'joystick', self.listener_callback, 10)
         self.left_f = 0 # Fuerza motor izq frontal
         self.right_f = 0 # fuerza motor der frontal
@@ -33,18 +32,19 @@ class serialRaspESP(Node):
         self.right_b = 0 # fuerza motor der back
         
 
-    
 
     def listener_callback(self, msg):
         self.left_f = int(msg.data[0])
         self.right_f = int (msg.data[1])
         self.left_b = int(msg.data[2])
         self.right_b = int (msg.data[3])
-        pwms = [agregar_ceros(self.left_f), agregar_ceros(self.right_f),agregar_ceros(self.left_b), agregar_ceros(self.right_b)]          
+        pwms = [self.agregar_ceros(self.left_f), self.agregar_ceros(self.right_f),self.agregar_ceros(self.left_b), self.agregar_ceros(self.right_b)]          
         print (pwms)
         self.ser.write((str(pwms) + '\n').encode('utf-8'))
 
-def agregar_ceros(numero):
+
+
+    def agregar_ceros( self, numero):        
         es_positivo=numero>=0
         numero_str=str(abs(numero))
         if es_positivo:
@@ -54,6 +54,7 @@ def agregar_ceros(numero):
         return numero_str
 
 def main(args=None):
+    print("prueba 1")
     rclpy.init(args=args)
     SerialRaspESP=serialRaspESP()
     rclpy.spin(SerialRaspESP)
@@ -61,5 +62,5 @@ def main(args=None):
     rclpy.shutdown()
 
 
-if __name__ == '__main__':
+if __name__ == '_main_':
     main()
