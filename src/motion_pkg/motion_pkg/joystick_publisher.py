@@ -26,9 +26,11 @@ class JoystickPublisher(Node):
 
 
     def __init__(self):
-        super().__init__('node_joystick_publisher')
-        self.publisher_ = self.create_publisher(Float32MultiArray, 'motion/pwm_data', 10)
-        timer_period = 0.01  # seconds
+
+        super().__init__('joystick_publisher')
+        self.publisher_ = self.create_publisher(Float32MultiArray, 'joystick', 10)
+        timer_period = 0.1  # seconds
+
 
         pygame.init()
         
@@ -73,12 +75,13 @@ class JoystickPublisher(Node):
                 left_d = int((self._max_rpm*(-axis3+1)/2)*axis2)
                 right_d = int(-(self._max_rpm*(-axis3+1)/2)*axis2)
 
-            msg.data[0],msg.data[1],msg.data[2], msg.data[3] = left_u,right_u,left_d,right_d
+            #msg.data[0],msg.data[1],msg.data[2], msg.data[3] = left_u,right_u,left_d,right_d
+            msg.data[0],msg.data[1],msg.data[2], msg.data[3] = left_d,right_d,0,0
             #encoded = (str(msg)+"\n").encode('utf-8')
             print(msg.data)
             self._axis_moved = False
 
-        self.publisher_.publish(msg)
+            self.publisher_.publish(msg)
     
     def stick_steering(self, x, y, sensibilidad_rcv):
         # Convierte a polar
@@ -126,14 +129,13 @@ class JoystickPublisher(Node):
 
 def main():
     rclpy.init()
-    try:
-        joystick_publisher = JoystickPublisher()
-        try:
-            rclpy.spin(joystick_publisher)
-        except KeyboardInterrupt:
-            sys.stdout.write("\033[F")
-            print('Ctrl-c detectado. Chao.')
-        finally:
-            joystick_publisher.destroy_node()
-    except pygame.error:
-        print('Error pygame. Esta conectado el joystick? Intenta de nuevo.')
+
+    joystick_publisher = Joystick_Publisher()
+    rclpy.spin(joystick_publisher)
+
+    joystick_publisher.destroy_node()
+    rclpy.shutdown()
+
+# if __name__ == '__main__':
+#     main()
+
