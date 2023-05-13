@@ -22,7 +22,7 @@ setup(
         'console_scripts': [
             'joystick_publisher = motion_pkg.joystick_publisher:main',
 
-            'Serial_writer = motion_pkg.Serial_writer:main',
+            'Serial_writer = motion_pkg.serial_writer:main',
 	    'move_forward = motion_pkg.move_forward:main',
 
         ],
