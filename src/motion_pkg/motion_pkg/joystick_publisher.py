@@ -15,7 +15,15 @@ class Joystick_Publisher(Node):
     _deadzone_rot = 0.30
     #Deadzone del moviemiento del joystick
     _deadzone_stick = 0.1
-
+    debug = input("Quiere debuggear? (1 o 0): ")
+    if debug == "1":
+        m1 = int(input("m1: "))
+        m2 = int(input("m2: "))
+        m3 = int(input("m3: "))
+        m4 = int(input("m4: "))
+    else:
+        m1,m2,m3,m4 = (1,1,1,1)
+    _enable = (m1,m2,m3,m4)
 
     def __init__(self):
         super().__init__('joystick_publisher')
@@ -57,15 +65,15 @@ class Joystick_Publisher(Node):
             axis3 = joystick_ref.get_axis(3)
             
             if abs(round(axis2,1)) <= self._deadzone_rot:
-                left_u,right_u,left_d,right_d = self.stick_steering(axis1, axis0, self._max_rpm*(-axis3+1)/2)
+                front_right,back_right,back_left,front_left = self.stick_steering(axis1, axis0, self._max_rpm*(-axis3+1)/2)
             else:
-                left_u =  int(-(self._max_rpm*(-axis3+1)/2)*axis2)
-                right_u = int((self._max_rpm*(-axis3+1)/2)*axis2)
-                left_d = int(-(self._max_rpm*(-axis3+1)/2)*axis2)
-                right_d = int((self._max_rpm*(-axis3+1)/2)*axis2)
+                front_right =  int(-(self._max_rpm*(-axis3+1)/2)*axis2)
+                back_right = int(-(self._max_rpm*(-axis3+1)/2)*axis2)
+                back_left = int((self._max_rpm*(-axis3+1)/2)*axis2)
+                front_left = int((self._max_rpm*(-axis3+1)/2)*axis2)
 
             #msg.data[0],msg.data[1],msg.data[2], msg.data[3] = left_u,right_u,left_d,right_d
-            msg.data[0],msg.data[1],msg.data[2], msg.data[3] = -left_d,-right_d,0,0
+            msg.data[0],msg.data[1],msg.data[2], msg.data[3] = front_right * self._enable[0],-back_right * self._enable[1],-back_left * self._enable[2],front_left * self._enable[3]
             #encoded = (str(msg)+"\n").encode('utf-8')
             print(msg.data)
             self._axis_moved = False
