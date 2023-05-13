@@ -33,7 +33,7 @@ class SerialWriter(Node):
 
         self.pwm_data_subscriber = self.create_subscription(
             Float32MultiArray,
-            'motion/pwm_data',
+            '/joystick',
             lambda msg : self.pwm_data_callback(msg=msg, arduino=arduino),
             10
         )
@@ -55,14 +55,14 @@ class SerialWriter(Node):
         self._vel_izq_d = int(msg.data[2])
         self._vel_der_d = int(msg.data[3])
 
-        left_u =  self.agregar_ceros(left_u)
-        right_u = self.agregar_ceros(right_u)
-        left_d =  self.agregar_ceros(left_d)
-        right_d = self.agregar_ceros(right_d)
+        left_u =  self.agregar_ceros(self._vel_izq_u)
+        right_u = self.agregar_ceros( self._vel_der_u)
+        left_d =  self.agregar_ceros( self._vel_izq_d)
+        right_d = self.agregar_ceros( self._vel_der_d)
 
-        (order[0], order[1],order[2],order[3]) = (left_u, right_u, left_d, right_d)
+        (order[0], order[1],order[2],order[3]) =  ( left_u,right_u,left_d,right_d)
         encoded = (str(order) + '\n').encode('utf-8')
-        print(left_u,right_u,left_d,right_d)
+        print(encoded)
 
         arduino.write(encoded)
 
@@ -71,8 +71,8 @@ class SerialWriter(Node):
         self._flag_autonomo = bool(msg.data)
         self._flag_autonomo = False
     # Agregar ceros (para que se mande por serial bien)
-    def agregar_ceros(numero):
-        es_positivo=numero>=0
+    def agregar_ceros(self,numero):
+        es_positivo=float(numero)>=0
         numero_str=str(abs(numero))
         if es_positivo:
             numero_str="0"*(4-len(numero_str))+numero_str
