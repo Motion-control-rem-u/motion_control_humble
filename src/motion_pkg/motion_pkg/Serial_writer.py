@@ -52,7 +52,17 @@ def agregar_ceros( numero):
     return numero_str
 
 
+    def agregar_ceros( self, numero):        
+        es_positivo=numero>=0
+        numero_str=str(abs(numero))
+        if es_positivo:
+            numero_str="0"*(4-len(numero_str))+numero_str
+        else:
+            numero_str="-"+"0"*(3-len(numero_str))+numero_str
+        return numero_str
+
 def main(args=None):
+    print("prueba 1")
     rclpy.init(args=args)
     SerialRaspESP=serialRaspESP()
     rclpy.spin(SerialRaspESP)
@@ -60,5 +70,5 @@ def main(args=None):
     rclpy.shutdown()
 
 
-if __name__ == '__main__':
+if __name__ == '_main_':
     main()
