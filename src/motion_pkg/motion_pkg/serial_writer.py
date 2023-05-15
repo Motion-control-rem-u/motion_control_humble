@@ -8,6 +8,7 @@ import serial
 import serial.tools.list_ports
 from serial.serialutil import SerialException
 
+import threading
 
 class SerialWriter(Node):
     '''
@@ -31,6 +32,8 @@ class SerialWriter(Node):
 
         arduino = serial.Serial('/dev/ttyACM0', 115200, timeout=10)
 
+        self.timer = threading.Timer(2.0, self.detener)
+
         self.pwm_data_subscriber = self.create_subscription(
             Float32MultiArray,
             '/joystick',
@@ -48,7 +51,8 @@ class SerialWriter(Node):
 
     def pwm_data_callback(self, msg, arduino):
         #TODO editar cuando tengamos nav autonomo
-
+        if self.timer.is_alive():
+            self.timer.cancel()
         order = [0,0,0,0, self._modo]
         self._vel_izq_u = int(msg.data[0])
         self._vel_der_u = int(msg.data[1])
@@ -64,7 +68,9 @@ class SerialWriter(Node):
         encoded = (str(order) + '\n').encode('utf-8')
         print(encoded)
 
+        self.arduino = arduino
         arduino.write(encoded)
+        self.timer.start()
 
     def flag_autonomo_callback(self, msg):
         #TODO
@@ -79,7 +85,10 @@ class SerialWriter(Node):
         else:
             numero_str="-"+"0"*(3-len(numero_str))+numero_str
         return numero_str
-    
+    def detener(self):
+        order = [0,0,0,0, self.modo]
+        encoded = (str(order) + '\n').encode('utf-8')
+        self.arduino.write(encoded)
 
 
 
