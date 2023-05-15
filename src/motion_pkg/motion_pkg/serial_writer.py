@@ -33,7 +33,7 @@ class SerialWriter(Node):
         arduino = serial.Serial('/dev/ttyACM0', 115200, timeout=10)
 
         self.timer = threading.Timer(2.0, self.detener)
-
+        self.test = True
         self.pwm_data_subscriber = self.create_subscription(
             Float32MultiArray,
             '/joystick',
@@ -51,8 +51,11 @@ class SerialWriter(Node):
 
     def pwm_data_callback(self, msg, arduino):
         #TODO editar cuando tengamos nav autonomo
-        if self.timer.is_alive():
-            self.timer.cancel()
+        if self.test:
+            self.test = False
+            self.timer.start()
+        self.timer.cancel()
+        self.timer = threading.Timer(2.0, self.detener)
         order = [0,0,0,0, self._modo]
         self._vel_izq_u = int(msg.data[0])
         self._vel_der_u = int(msg.data[1])
@@ -66,10 +69,11 @@ class SerialWriter(Node):
 
         (order[0], order[1],order[2],order[3]) =  ( left_u,right_u,left_d,right_d)
         encoded = (str(order) + '\n').encode('utf-8')
-        print(encoded)
+        #print(encoded)
 
         self.arduino = arduino
         arduino.write(encoded)
+        print(arduino.readline())
         self.timer.start()
 
     def flag_autonomo_callback(self, msg):
@@ -87,7 +91,7 @@ class SerialWriter(Node):
         return numero_str
     def detener(self):
         print("Codigo antisuicida activo!!")
-        order = [0,0,0,0, self.modo]
+        order = [0,0,0,0, self._modo]
         encoded = (str(order) + '\n').encode('utf-8')
         self.arduino.write(encoded)
 
