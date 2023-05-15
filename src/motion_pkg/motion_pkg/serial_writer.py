@@ -86,6 +86,7 @@ class SerialWriter(Node):
             numero_str="-"+"0"*(3-len(numero_str))+numero_str
         return numero_str
     def detener(self):
+        print("Codigo antisuicida activo!!")
         order = [0,0,0,0, self.modo]
         encoded = (str(order) + '\n').encode('utf-8')
         self.arduino.write(encoded)
