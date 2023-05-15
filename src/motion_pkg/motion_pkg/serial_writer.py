@@ -63,6 +63,7 @@ class SerialWriter(Node):
         (order[0], order[1],order[2],order[3]) =  ( left_u,right_u,left_d,right_d)
         encoded = (str(order) + '\n').encode('utf-8')
         print(encoded)
+        print(arduino.readline())
 
         arduino.write(encoded)
 
